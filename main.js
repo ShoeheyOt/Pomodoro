@@ -1,25 +1,21 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+const nowHour = new Date().getHours() * 60 * 60;
+const nowMin = new Date().getMinutes() * 60;
+const nowSec = new Date().getSeconds();
+const nowTime = nowHour + nowMin + nowSec
 
-document.querySelector('#app').innerHTML = `
-  <h1>Hello World</h1>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const times = document.querySelector("input");
+const display = document.querySelector('#display');
+const display2 = document.querySelector('#display2');
+const display3 = document.querySelector('#display3');
+ 
 
-setupCounter(document.querySelector('#counter'))
+times.addEventListener('keyup', (e) => {
+  if (e.key === 'Enter') {
+    const goalTime = Date.now() + (60000 * 25);
+    const restGoalTime = Date.now() + (60000 * 5);
+    setInterval(() => {
+    display.innerText = `${new Date(goalTime - Date.now()).getMinutes()} : ${new Date(goalTime - Date.now()).getSeconds()}`;
+    display2.innerText = `${new Date(restGoalTime - Date.now()).getMinutes()} : ${new Date(restGoalTime - Date.now()).getSeconds()}`;
+    }, 1000);
+  }
+});
