@@ -1,3 +1,5 @@
+import './style.css'
+
 const times = document.querySelector("input");
 const display = document.querySelector('#display');
 const display2 = document.querySelector('#display2');
