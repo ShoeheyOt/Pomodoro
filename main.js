@@ -4,105 +4,66 @@ const times = document.querySelector("input");
 const display = document.querySelector('#display');
 const display2 = document.querySelector('#display2');
 const display3 = document.querySelector('#display3');
-
+let pomoIntervalSwitch;
+let breakSwitch;
 times.addEventListener('keyup', (e) => {
   if(e.key === 'Enter') {
-    const num = parseInt(times.value);
-    display2.innerText = '';
-    const fiveMin = 300000;
-    let pomoGoal;
-    // use it later Date.now() + ((fiveMin * 5) + (fiveMin * (num - 1) * 6));
-    let breakGoal;
-    //use it later  Date.now() + (fiveMin * (num - 1) * 6);
-    let breakStart;
-    //use it later (fiveMin * 5) + (fiveMin * (num - 1) * 6);
-    let pomoStart ;
-    //use it later fiveMin * (num - 1) * 6;
-   
-    if (!num) {
-        alert('Please input a number which how long you want focus on');
-        times.value = '';
-        return;
-      };
-      recPomo(num, pomoGoal, breakGoal, fiveMin, breakStart, pomoStart);    
-    // id = setInterval(onePomodoro, 10, pomoGoal);
-    // setTimeout(myStopInterval, 5000, id)
-    // if(parseInt(times.value) !== 1) {
-    //     const setRestPomodoro = setInterval(restTimes, 10, breakGoal, pomoGoal)
-    //     setTimeout(setRestPomodoro, pomoGoal) ;
-    //   }    
-     //5min rest and 25min sets executed
+      const inputVal = parseInt(times.value);
+      times.value = '';
+      if (!inputVal) {
+          alert('Please input a number which how long you want focus on');
+          times.value = '';
+          return;
+        }; 
+      if(pomoIntervalSwitch) {
+        myClearInterval()
+      } else if(breakSwitch){
+        breakClearInterval()
+      }
+      let now = Date.now()
+      if (inputVal == 1) {
+        pomoIntervalSwitch = setInterval(onePomodoro, 100, inputVal, now)
+      }
+      if(inputVal > 1) {
+        let num = inputVal
+        pomoIntervalSwitch = setInterval(onePomodoro, 100, inputVal, now)
+        breakSwitch = function() {setInterval(breakTime, 100, inputVal, now)}
+        while ( num > 1) {
+          setTimeout(pomoIntervalSwitch, 300000 * 6 * (num - 1))
+          setTimeout(breakSwitch, 30000 * 5 + (30000 * 6 * (num - 2)))
+          num --;
+        }
+      }
   }
 })
-
-//Recursive way for pomodoro
-function recPomo(num, pomoGoal, breakGoal, fiveMin, breakStart, pomoStart) {
-  pomoStart = fiveMin * (num - 1) * 6;
-  pomoGoal = Date.now() + ((fiveMin * 5) + (fiveMin * (num - 1) * 6));
-  breakStart = (fiveMin * 5) + (fiveMin * (num - 2) * 6);
-  breakGoal = Date.now() + (fiveMin * (num - 1) * 6);
-  if (num == 1) {
-    myPomoInterval(pomoGoal, num);
-    return;
-  } else {  
-    recPomo(num - 1, pomoGoal, breakGoal, fiveMin, breakStart, pomoStart);
-    setTimeout(restPomo, breakStart, breakGoal);
-    setTimeout(myPomoInterval, pomoStart, pomoGoal, num);
-    return;
+function onePomodoro(num, now) {
+  const fiveMin = 300000;
+  let startTiming = fiveMin * 6 * (num - 1)
+  let pomoGoalTime = now + fiveMin * 5 + fiveMin * 6 * (num - 1)
+  display2.innerText = `onePomo ${num} ${new Date(pomoGoalTime - startTiming - Date.now()).getMinutes()} : ${new Date(pomoGoalTime - Date.now()).getSeconds()}`;
+  if(Math.floor(pomoGoalTime / 10) <= Math.floor(Date.now() / 10)) {
+    myClearInterval()
   }
 }
 
-const myPomoInterval = (pomoGoal, num) => {
-  //fn for showing the difference of now and goal time
-  const onePomodoro = (pomoGoal, num) => { 
-    let nowTime = Date.now();
-    display2.innerText = `onePomo ${num} ${new Date(pomoGoal - nowTime).getMinutes()} : ${new Date(pomoGoal - nowTime).getSeconds()}`;
-    
-    if(Math.floor(pomoGoal / 10) <= Math.floor(nowTime / 10) ) {
-     myStopInterval(id);
-    }
-  };
-  //fn for clear interval
-  const myStopInterval = (id) => {
-    clearInterval(id);
-    display2.innerText = '';
+function breakTime(num, now) {
+  const fiveMin = 300000
+  const breakStart = fiveMin * 6 * (num - 2)
+  const breakEndTime = now + fiveMin + fiveMin * 6 * (num - 2)
+  display2.innerText = `Break Time ${new Date(breakEndTime - breakStart -Date.now()).getMinutes()} : ${new Date(breakEndTime - Date.now()).getSeconds()}`;
+  if(Math.floor(breakEndTime / 10) <= Math.floor(Date.now() / 10)) {
+    breakClearInterval()
   }
-  //reference and invoke key
-  const id = setInterval(onePomodoro, 10, pomoGoal, num);
-};
+}
+function myClearInterval() {
+  clearInterval(pomoIntervalSwitch)
+  display2.innerText = '';
+  pomoIntervalSwitch = null
+}
 
-//fn for watching rest time count down
-const restPomo = (breakGoal) => { 
-  let oneRest = (breakGoal) => {
-    const nowTime = Date.now();
-     display2.innerText = `restPomo ${new Date(breakGoal - nowTime).getMinutes()} : ${new Date(breakGoal - nowTime).getSeconds()}`;
-     if(Math.floor(breakGoal / 10) <= Math.floor(nowTime / 10) ) {
-      restStopInterval(ids);
-     }
-  };
-  const restStopInterval = (ids) => {
-    clearInterval(ids);
-    display2.innerText = '';
-  };
-  const ids = setInterval(oneRest, 10, breakGoal);
-};
+function breakClearInterval() {
+  clearInterval(breakSwitch)
+  display2.innerText = '';
+  breakSwitch = null
+}
 
-
-
-// async function restTimes (breakGoal, pomoGoal, fiveMin) {
-//   const nowTime = Date.now();
-//   display.innerText = `${new Date(breakGoal - nowTime).getMinutes()} : ${new Date(breakGoal - nowTime).getSeconds()}`;
-//   if(Math.floor(breakGoal / 10) < Math.floor(Date.now() / 10) ) {
-//     clearInterval(restTimes);
-//     display.innerText = "Good Luck!!"
-//   } 
-  
-//   const pomodoro = await pomodoroTime(pomoGoal, fiveMin);
-//   display2.innerText = pomodoro;
-// }
-
-// function pomodoroTime (pomoGoal, fiveMin) {
-//   return new Promise((resolve) =>{
-//     setTimeout(onePomodoro, fiveMin, pomoGoal);        
-//   })
-// };
