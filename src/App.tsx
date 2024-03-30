@@ -10,6 +10,14 @@ function App() {
     const start = Date.now();
     const twentyFiveMinutes = 1000 * 60 * 25;
     const goal = start + twentyFiveMinutes;
+
+    //if already fired, clear the previous timer
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+
+    //store ID into intervalId and start countdown
     intervalId = setInterval(() => {
       setMinutes(
         new Date(goal - Date.now()).getMinutes().toString().padStart(2, "0")
@@ -18,6 +26,7 @@ function App() {
         new Date(goal - Date.now()).getSeconds().toString().padStart(2, "0")
       );
     }, 100);
+    //clearInterval when hits 0
     setTimeout(() => {
       clearInterval(intervalId!);
     }, twentyFiveMinutes);
@@ -43,10 +52,10 @@ function App() {
           <div>:</div>
           <div>{seconds}</div>
         </div>
+        <button onClick={handleClickStart}>start</button>
+        <button onClick={handleClickStop}>stop</button>
+        <button onClick={handleClickReset}>Reset</button>
       </main>
-      <button onClick={handleClickStart}>start</button>
-      <button onClick={handleClickStop}>stop</button>
-      <button onClick={handleClickReset}>Reset</button>
     </>
   );
 }
