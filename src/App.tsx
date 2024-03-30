@@ -3,17 +3,24 @@ import { useState } from "react";
 let intervalId: number | null;
 
 function App() {
-  const [minutes, setMinutes] = useState(25);
-  const [seconds, setSeconds] = useState(0);
+  const [minutes, setMinutes] = useState("25");
+  const [seconds, setSeconds] = useState("00");
 
   const handleClickStart = () => {
     const start = Date.now();
     const twentyFiveMinutes = 1000 * 60 * 25;
     const goal = start + twentyFiveMinutes;
     intervalId = setInterval(() => {
-      setMinutes(new Date(goal - Date.now()).getMinutes());
-      setSeconds(new Date(goal - Date.now()).getSeconds());
+      setMinutes(
+        new Date(goal - Date.now()).getMinutes().toString().padStart(2, "0")
+      );
+      setSeconds(
+        new Date(goal - Date.now()).getSeconds().toString().padStart(2, "0")
+      );
     }, 100);
+    setTimeout(() => {
+      clearInterval(intervalId!);
+    }, twentyFiveMinutes);
   };
 
   const handleClickStop = () => {
@@ -23,8 +30,8 @@ function App() {
 
   const handleClickReset = () => {
     intervalId && clearInterval(intervalId);
-    setMinutes(25);
-    setSeconds(0);
+    setMinutes("25");
+    setSeconds("00");
     intervalId = null;
   };
   return (
