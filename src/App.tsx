@@ -1,4 +1,4 @@
-import { start } from "./timer";
+import { handleClickStart, handleClickStop } from "./timer";
 
 function App() {
   return (
@@ -13,10 +13,10 @@ function App() {
           <div>0</div>
         </div>
       </main>
-      <button className="mr-5" onClick={start}>
+      <button className="mr-5" onClick={handleClickStart}>
         Start
       </button>
-      <button>Stop</button>
+      <button onClick={handleClickStop}>Stop</button>
     </>
   );
 }
