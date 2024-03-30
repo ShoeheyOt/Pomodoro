@@ -1,4 +1,4 @@
-import "./App.css";
+import { start } from "./timer";
 
 function App() {
   return (
@@ -13,7 +13,10 @@ function App() {
           <div>0</div>
         </div>
       </main>
-      <button>Start</button>
+      <button className="mr-5" onClick={start}>
+        Start
+      </button>
+      <button>Stop</button>
     </>
   );
 }
