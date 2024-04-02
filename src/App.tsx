@@ -29,6 +29,7 @@ function App() {
     //clearInterval when hits 0
     setTimeout(() => {
       clearInterval(intervalId!);
+      alert("25 minutes!!");
     }, twentyFiveMinutes);
   };
 
