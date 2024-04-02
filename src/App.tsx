@@ -29,12 +29,14 @@ function App() {
     //clearInterval when hits 0
     setTimeout(() => {
       clearInterval(intervalId!);
+      alert("25 minutes!!");
     }, twentyFiveMinutes);
   };
 
-  const handleClickStop = () => {
+  const handleClickPause = () => {
     intervalId && clearInterval(intervalId);
     intervalId = null;
+    return;
   };
 
   const handleClickReset = () => {
@@ -42,6 +44,30 @@ function App() {
     setMinutes("25");
     setSeconds("00");
     intervalId = null;
+  };
+  const handleResumeStart = () => {
+    const start = Date.now();
+    const fiveMinutes = 1000 * 60 * 5;
+    const goal = start + fiveMinutes;
+
+    //if already fired, clear the previous timer
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    //store ID into intervalId and start countdown
+    intervalId = setInterval(() => {
+      setMinutes(
+        new Date(goal - Date.now()).getMinutes().toString().padStart(2, "0")
+      );
+      setSeconds(
+        new Date(goal - Date.now()).getSeconds().toString().padStart(2, "0")
+      );
+    }, 100);
+    //clearInterval when hits 0
+    setTimeout(() => {
+      clearInterval(intervalId!);
+    }, fiveMinutes);
   };
   return (
     <>
@@ -52,8 +78,9 @@ function App() {
           <div>:</div>
           <div>{seconds}</div>
         </div>
-        <button onClick={handleClickStart}>start</button>
-        <button onClick={handleClickStop}>stop</button>
+        <button onClick={handleClickStart}> 25 min start</button>
+        <button onClick={handleResumeStart}> 5 min start</button>
+        <button onClick={handleClickPause}>Stop</button>
         <button onClick={handleClickReset}>Reset</button>
       </main>
     </>
