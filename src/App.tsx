@@ -35,7 +35,7 @@ function App() {
 
   const handleClickPause = () => {
     intervalId && clearInterval(intervalId);
-    intervalId = null;
+
     return;
   };
 
@@ -45,7 +45,7 @@ function App() {
     setSeconds("00");
     intervalId = null;
   };
-  const handleResumeStart = () => {
+  const handleBreakStart = () => {
     const start = Date.now();
     const fiveMinutes = 1000 * 60 * 5;
     const goal = start + fiveMinutes;
@@ -69,6 +69,9 @@ function App() {
       clearInterval(intervalId!);
     }, fiveMinutes);
   };
+
+  // const handleResumeTimer = () => {};
+
   return (
     <>
       <header className="text-6xl">Pomodoro Timer</header>
@@ -79,9 +82,10 @@ function App() {
           <div>{seconds}</div>
         </div>
         <button onClick={handleClickStart}> 25 min start</button>
-        <button onClick={handleResumeStart}> 5 min start</button>
+        <button onClick={handleBreakStart}> 5 min start</button>
         <button onClick={handleClickPause}>Stop</button>
         <button onClick={handleClickReset}>Reset</button>
+        <button>Resume</button>
       </main>
     </>
   );
