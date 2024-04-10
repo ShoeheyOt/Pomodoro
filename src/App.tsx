@@ -70,7 +70,15 @@ function App() {
     }, fiveMinutes);
   };
 
-  // const handleResumeTimer = () => {};
+  const handleResumeTimer = () => {
+    const start = Date.now();
+    const time = (1000 * parseInt(seconds) ) + (1000 * 60 * parseInt(minutes))
+    const goal = start + time;
+    intervalId = setInterval (() => {
+      setMinutes(new Date(goal - Date.now()).getMinutes().toString().padStart(2,"0"));
+      setSeconds(new Date(goal - Date.now()).getSeconds().toString().padStart(2,"0"));
+    }, 100)
+  };
 
   return (
     <>
@@ -85,7 +93,7 @@ function App() {
         <button onClick={handleBreakStart}> 5 min start</button>
         <button onClick={handleClickPause}>Stop</button>
         <button onClick={handleClickReset}>Reset</button>
-        <button>Resume</button>
+        <button onClick={handleResumeTimer}>Resume</button>
       </main>
     </>
   );
