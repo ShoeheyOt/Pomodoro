@@ -72,12 +72,17 @@ function App() {
 
   const handleResumeTimer = () => {
     const start = Date.now();
+    // add remained seconds and minutes as unit of milliseconds 
     const time = (1000 * parseInt(seconds) ) + (1000 * 60 * parseInt(minutes))
     const goal = start + time;
     intervalId = setInterval (() => {
       setMinutes(new Date(goal - Date.now()).getMinutes().toString().padStart(2,"0"));
       setSeconds(new Date(goal - Date.now()).getSeconds().toString().padStart(2,"0"));
     }, 100)
+
+    setTimeout(()=> {
+      clearInterval(intervalId!);
+    }, time)
   };
 
   return (
