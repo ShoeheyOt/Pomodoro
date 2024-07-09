@@ -28,6 +28,7 @@ function App() {
     }, 100);
     //clearInterval when hits 0
     setTimeout(() => {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
       alert("25 minutes!!");
     }, twentyFiveMinutes);
@@ -66,39 +67,53 @@ function App() {
     }, 100);
     //clearInterval when hits 0
     setTimeout(() => {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
+      alert("5 minutes!!");
     }, fiveMinutes);
   };
 
   const handleResumeTimer = () => {
     const start = Date.now();
-    // add remained seconds and minutes as unit of milliseconds 
-    const time = (1000 * parseInt(seconds) ) + (1000 * 60 * parseInt(minutes))
+    // add remained seconds and minutes as unit of milliseconds
+    const time = 1000 * Number(seconds) + 1000 * 60 * Number(minutes);
     const goal = start + time;
-    intervalId = setInterval (() => {
-      setMinutes(new Date(goal - Date.now()).getMinutes().toString().padStart(2,"0"));
-      setSeconds(new Date(goal - Date.now()).getSeconds().toString().padStart(2,"0"));
-    }, 100)
+    intervalId = setInterval(() => {
+      setMinutes(
+        new Date(goal - Date.now()).getMinutes().toString().padStart(2, "0")
+      );
+      setSeconds(
+        new Date(goal - Date.now()).getSeconds().toString().padStart(2, "0")
+      );
+    }, 100);
 
-    setTimeout(()=> {
+    setTimeout(() => {
+      // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
-    }, time)
+    }, time);
   };
 
   return (
     <>
-      <header className="text-6xl">Pomodoro Timer</header>
+      <header className="text-4xl md:text-6xl">Pomodoro Timer</header>
       <main>
-        <div className="flex justify-center gap-2 text-6xl mt-14 mb-5">
+        <div className="flex justify-center gap-2 text-4xl md:text-6xl mt-14 mb-5">
           <div>{minutes}</div>
           <div>:</div>
           <div>{seconds}</div>
         </div>
-        <button onClick={handleClickStart}> 25 min start</button>
-        <button onClick={handleBreakStart}> 5 min start</button>
-        <button onClick={handleClickPause}>Stop</button>
-        <button onClick={handleClickReset}>Reset</button>
-        <button onClick={handleResumeTimer}>Resume</button>
+        <div className="mx-2 flex gap-2 text-xs md:text-base">
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button onClick={handleClickStart}> 25 min</button>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button onClick={handleBreakStart}> 5 min</button>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button onClick={handleClickPause}>Stop</button>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button onClick={handleClickReset}>Reset</button>
+          {/* biome-ignore lint/a11y/useButtonType: <explanation> */}
+          <button onClick={handleResumeTimer}>Resume</button>
+        </div>
       </main>
     </>
   );
