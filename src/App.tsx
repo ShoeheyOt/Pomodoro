@@ -31,6 +31,7 @@ function App() {
       // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
       alert("25 minutes!!");
+      window.open("https://www.youtube.com/watch?v=qRwxbA8HN34", "_blank");
     }, twentyFiveMinutes);
   };
 
@@ -70,6 +71,7 @@ function App() {
       // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
       alert("5 minutes!!");
+      window.open("https://www.youtube.com/watch?v=qRwxbA8HN34", "_blank");
     }, fiveMinutes);
   };
 
