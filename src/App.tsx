@@ -30,14 +30,13 @@ function App() {
     setTimeout(() => {
       // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
-      alert("25 minutes!!");
+      // alert("25 minutes!!");
       window.open("https://www.youtube.com/watch?v=qRwxbA8HN34", "_blank");
     }, twentyFiveMinutes);
   };
 
   const handleClickPause = () => {
     intervalId && clearInterval(intervalId);
-
     return;
   };
 
@@ -62,15 +61,17 @@ function App() {
       setMinutes(
         new Date(goal - Date.now()).getMinutes().toString().padStart(2, "0")
       );
+
       setSeconds(
         new Date(goal - Date.now()).getSeconds().toString().padStart(2, "0")
       );
     }, 100);
+
     //clearInterval when hits 0
     setTimeout(() => {
       // biome-ignore lint/style/noNonNullAssertion: <explanation>
       clearInterval(intervalId!);
-      alert("5 minutes!!");
+      // alert("5 minutes!!");
       window.open("https://www.youtube.com/watch?v=qRwxbA8HN34", "_blank");
     }, fiveMinutes);
   };

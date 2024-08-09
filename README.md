@@ -1,30 +1,43 @@
-# React + TypeScript + Vite
+# Pomodoro Timer Application
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The Pomodoro Timer is a simple yet effective tool designed to enhance productivity through the Pomodoro Technique. This technique involves working for focused periods (traditionally 25 minutes), followed by short breaks (typically 5 minutes).
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 25-Minute Timer: Ideal for focused work or study sessions. After completing a 25-minute session, the timer will automatically redirect you to a alarm video on YouTube.
+- 5-Minute Timer: Designed for short breaks between work sessions. After the break, you're encouraged to resume your focused work session.
+- Pause/Resume Functionality: Pause the timer at any moment and resume where you left off, maintaining flexibility during your workflow.
+- Reset Option: Reset the timer to start a fresh session whenever needed.
 
-## Expanding the ESLint configuration
+<div align="center">
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+![Alt:text](public/UI.svg)
 
-- Configure the top-level `parserOptions` property like this:
+\*picture of application
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+</div>
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Getting Started
+
+To run the Pomodoro Timer Application locally, follow these steps:
+
+1. Clone the repository to your local machine.
+
+2. Navigate to the project directory in your terminal.
+3. Run `npm install` to install the necessary dependencies.
+4. Start the development server with `npm start`.
+5. Open your web browser and go to `http://localhost:5173/` to view the application.
+
+## Usage
+
+Upon launching the application, you will be greeted with a simple interface displaying the current timer status. Below the timer, you will find buttons to control the timer:
+
+- 25 min: Start a 25-minute focused work session.
+- 5 min: Initiate a 5-minute break.
+- Stop: Pause the ongoing timer.
+- Reset: Reset the timer to its initial state.
+- Resume: Resume the timer from where it was paused.
+
+After completing a 25-minute session or a 5-minute break, the application will automatically open a YouTube video in a new tab, signaling the transition between work and break periods.
+
+Enjoy enhancing your productivity with the Pomodoro Timer Application!
