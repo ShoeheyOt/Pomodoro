@@ -13,7 +13,7 @@ The Pomodoro Timer is a simple yet effective tool designed to enhance productivi
 
 ![Alt:text](public/UI.svg)
 
-\*picture of application
+\*image of application
 
 </div>
 
